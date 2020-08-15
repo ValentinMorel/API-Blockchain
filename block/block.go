@@ -26,20 +26,6 @@ func GenesisBlock(data string) *Block {
 	return &genesisBlock
 }
 
-func GenerateBlock(prevBlock *Block, data string) (*Block, error) {
-
-	var newBlock Block
-	timestamp := time.Now()
-
-	newBlock.Index = prevBlock.Index + 1
-	newBlock.Timestamp = timestamp.String()
-	newBlock.Data = data
-	newBlock.PrevHash = prevBlock.Hash
-	newBlock.Hash = ComputeHash(&newBlock)
-
-	return &newBlock, nil
-}
-
 func ComputeHash(block *Block) string {
 	concatBlockAttrs := string(block.Index) + block.Timestamp + block.Data + block.PrevHash
 

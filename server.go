@@ -1,6 +1,7 @@
 package main
 
 import (
+	"API-example/api"
 	"API-example/block"
 	"API-example/blockchain"
 	"net/http"
@@ -27,6 +28,9 @@ func run() {
 	echoInstance.GET("/", func(echoContext echo.Context) error {
 		return echoContext.String(http.StatusOK, "Hello World \n")
 	})
+	echoInstance.GET("/api/Blockchain", api.GetBlockchain)
+	//echoInstance.POST("/api/AddBlock", api.AddBlock)
+	echoInstance.POST("/api/CreateBlockchain", api.CreateBlockchain)
 
 	echoInstance.Logger.Fatal(echoInstance.Start(":8080"))
 	//Make a request on the API with :
@@ -39,7 +43,7 @@ func main() {
 	Genesis := block.GenesisBlock("genesis")
 	Blockchain.AddBlock(Genesis)
 
-	NewBlock, err := block.GenerateBlock(Blockchain.Blocks[len(Blockchain.Blocks)-1], "second block")
+	NewBlock, err := Blockchain.GenerateNewBlock("second block")
 	if err != nil {
 		panic(err)
 	}
@@ -50,4 +54,6 @@ func main() {
 			spew.Dump(block)
 		}
 	}
+	run()
+
 }
