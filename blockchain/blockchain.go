@@ -17,7 +17,7 @@ func (b *Blockchain) AddBlock(block *block.Block) {
 	b.Blocks = append(b.Blocks, block)
 }
 
-func (b *Blockchain) GenerateNewBlock(data string) (*block.Block, error) {
+func (b *Blockchain) GenerateNewBlock(data string) *block.Block {
 
 	var newBlock block.Block
 	prevBlock := b.Blocks[len(b.Blocks)-1]
@@ -29,5 +29,5 @@ func (b *Blockchain) GenerateNewBlock(data string) (*block.Block, error) {
 	newBlock.PrevHash = prevBlock.Hash
 	newBlock.Hash = block.ComputeHash(&newBlock)
 
-	return &newBlock, nil
+	return &newBlock
 }

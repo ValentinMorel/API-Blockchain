@@ -17,7 +17,7 @@ type Message struct {
 
 func GetBlockchain(echoContext echo.Context) error {
 
-	bytes, err := json.MarshalIndent(Blockchain, "", "")
+	bytes, err := json.MarshalIndent(Blockchain, "", "  ")
 	if err != nil {
 		return echoContext.String(http.StatusInternalServerError, "No blockchain found on api.")
 	}
@@ -25,10 +25,15 @@ func GetBlockchain(echoContext echo.Context) error {
 }
 
 //
-//func AddBlock(echoContext echo.Context) error {
-//	var message Message
-//
-//}
+func AddBlock(echoContext echo.Context) error {
+	var message Message
+	if err := echoContext.Bind(&message); err != nil {
+		return echoContext.NoContent(http.StatusBadGateway)
+	}
+	Blockchain.AddBlock(Blockchain.GenerateNewBlock(message.Data))
+	bytes, _ := json.MarshalIndent(&Blockchain, "", "  ")
+	return echoContext.String(http.StatusOK, string(bytes))
+}
 
 func CreateBlockchain(echoContext echo.Context) error {
 	var message Message

@@ -29,7 +29,7 @@ func run() {
 		return echoContext.String(http.StatusOK, "Hello World \n")
 	})
 	echoInstance.GET("/api/Blockchain", api.GetBlockchain)
-	//echoInstance.POST("/api/AddBlock", api.AddBlock)
+	echoInstance.POST("/api/AddBlock", api.AddBlock)
 	echoInstance.POST("/api/CreateBlockchain", api.CreateBlockchain)
 
 	echoInstance.Logger.Fatal(echoInstance.Start(":8080"))
@@ -40,15 +40,8 @@ func run() {
 
 func main() {
 	Blockchain := blockchain.NewBlockChain()
-	Genesis := block.GenesisBlock("genesis")
-	Blockchain.AddBlock(Genesis)
-
-	NewBlock, err := Blockchain.GenerateNewBlock("second block")
-	if err != nil {
-		panic(err)
-	}
-
-	Blockchain.AddBlock(NewBlock)
+	Blockchain.AddBlock(block.GenesisBlock("genesis"))
+	Blockchain.AddBlock(Blockchain.GenerateNewBlock("second block"))
 	for _, block := range Blockchain.Blocks {
 		if block.Index == 1 {
 			spew.Dump(block)
