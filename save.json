@@ -1,0 +1,18 @@
+{
+	"Blocks": [
+		{
+			"Index": 0,
+			"Timestamp": "2020-08-16 04:50:42.935210555 +0200 CEST m=+61.646253721",
+			"Data": "Genesis",
+			"PrevHash": "",
+			"Hash": "421897f6d16b54e0ac756cef8bfcb840655fd545f9cbdf5aa0552ed56c3dfd62"
+		},
+		{
+			"Index": 1,
+			"Timestamp": "2020-08-16 04:51:21.502517915 +0200 CEST m=+100.213561088",
+			"Data": "Second Block",
+			"PrevHash": "421897f6d16b54e0ac756cef8bfcb840655fd545f9cbdf5aa0552ed56c3dfd62",
+			"Hash": "7bd041b1513a0e35f602e50600c338526e797a2ae1b480b68bc6c1f5cf655ade"
+		}
+	]
+}

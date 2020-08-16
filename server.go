@@ -31,7 +31,7 @@ func run() {
 	echoInstance.GET("/api/Blockchain", api.GetBlockchain)
 	echoInstance.POST("/api/AddBlock", api.AddBlock)
 	echoInstance.POST("/api/CreateBlockchain", api.CreateBlockchain)
-
+	echoInstance.POST("/api/persistBlockchain", api.PersistBlockchain)
 	echoInstance.Logger.Fatal(echoInstance.Start(":8080"))
 	//Make a request on the API with :
 	// curl -X GET localhost:8080/ -> Response : "Hello World"

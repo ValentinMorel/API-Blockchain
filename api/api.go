@@ -3,6 +3,7 @@ package api
 import (
 	"API-example/block"
 	"API-example/blockchain"
+	"API-example/persist"
 	"encoding/json"
 	"net/http"
 
@@ -45,4 +46,13 @@ func CreateBlockchain(echoContext echo.Context) error {
 	Blockchain.AddBlock(Genesis)
 	bytes, _ := json.MarshalIndent(&Blockchain, "", "  ")
 	return echoContext.String(http.StatusOK, string(bytes))
+}
+
+func PersistBlockchain(echoContext echo.Context) error {
+	var message Message
+	if err := echoContext.Bind(&message); err != nil {
+		return echoContext.NoContent(http.StatusBadGateway)
+	}
+	persist.Save(message.Data, &Blockchain)
+	return echoContext.String(http.StatusOK, "blockchain saved !")
 }
