@@ -33,3 +33,21 @@ func Save(path string, v interface{}) error {
 	_, err = io.Copy(f, r)
 	return err
 }
+
+func Load(path string, v interface{}) error {
+	var lock sync.Mutex
+	lock.Lock()
+	defer lock.Unlock()
+
+	f, err := os.Open(path)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+
+	var Unmarshall = func(r io.Reader, v interface{}) error {
+		return json.NewDecoder(r).Decode(v)
+	}
+	return Unmarshall(f, v)
+
+}
